@@ -1,23 +1,34 @@
 package nhom5.model;
 
 public class SanPham {
-	private String ma;
-	private String ten;
-	private int giaMua;
-	private int giaBan;
-	private int soLuong;
+	private String 	ma;
+	private String 	ten;
+	private int 	namPhatHanh;
+	private int 	giaMua;
+	private int 	giaBan;
+	private int 	soLuong;
+	
 	public String getMa() {
 		return ma;
 	}
 	public void setMa(String ma) {
 		this.ma = ma;
 	}
+
 	public String getTen() {
 		return ten;
 	}
 	public void setTen(String ten) {
 		this.ten = ten;
 	}
+	
+	public int getNamPhatHanh() {
+		return namPhatHanh;
+	}
+	public void setNamPhatHanh(int namPhatHanh) {
+		this.namPhatHanh = namPhatHanh;
+	}
+	
 	public int getGiaMua() {
 		return giaMua;
 	}

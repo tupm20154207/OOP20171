@@ -1,0 +1,11 @@
+﻿Tú.
+26/10.
+
++ Thay đổi các thuộc tính sản phẩm cho phù hợp: CSDL chỉ lưu trữ những thông tin cần thiết để phục vụ việc bán chứ không phải tra cứu thông tin, vì vậy các thuộc tính của sản phẩm phải đơn trị, tối thiểu và đặc trưng nhất.
+
+> Sản phẩm: Thêm thuộc tính năm phát hành.
+> Đĩa phim: Loại bỏ thuộc tính diễn viên (vì nó đa trị), thêm thuộc tính hãng sản xuất.
+> Đĩa nhạc: Loại bỏ thuộc tính thể loại, thêm thuộc tính nhà sản xuất.
+
++ Chỉnh sửa các phương thức của lớp sản phẩm.
+> Giá mua là thuộc tính không được phép truy cập từ bất kì lớp nào (trừ quản lý), do đó nên gán giá trị cho sản phẩm ngay từ bước khởi tạo và không cung cấp cho nó phương thức get và set. (chưa sửa, chờ ý kiến).

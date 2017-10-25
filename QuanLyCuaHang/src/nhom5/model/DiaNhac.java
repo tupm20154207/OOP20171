@@ -2,18 +2,18 @@ package nhom5.model;
 
 public class DiaNhac extends SanPham {
 	private String tenCaSi;
-	private String theLoai;
+	private String nhaSanXuat;
+	
 	public String getTenCaSi() {
 		return tenCaSi;
 	}
 	public void setTenCaSi(String tenCaSi) {
 		this.tenCaSi = tenCaSi;
 	}
-	public String getTheLoai() {
-		return theLoai;
+	public String getNhaSanXuat() {
+		return nhaSanXuat;
 	}
-	public void setTheLoai(String theLoai) {
-		this.theLoai = theLoai;
+	public void setNhaSanXuat(String nhaSanXuat) {
+		this.nhaSanXuat = nhaSanXuat;
 	}
-	
 }

@@ -3,6 +3,7 @@ package nhom5.model;
 public class Sach {
 	private String nhaXuatBan;
 	private String tacGia;
+	
 	public String getNhaXuatBan() {
 		return nhaXuatBan;
 	}
