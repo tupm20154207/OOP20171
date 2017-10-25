@@ -1,7 +1,6 @@
-package ductung.test;
+package nhom5.test;
 
-import ductung.model.QuanLy;
-import ductung.ui.QuanLyUI;
+import nhom5.ui.QuanLyUI;
 
 public class TestQuanLyUI {
 

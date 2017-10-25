@@ -1,4 +1,4 @@
-package ductung.model;
+package nhom5.model;
 
 import java.util.Date;
 

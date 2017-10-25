@@ -1,4 +1,4 @@
-package ductung.ui;
+package nhom5.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

@@ -1,4 +1,4 @@
-package ductung.ui;
+package nhom5.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -38,6 +38,19 @@ public class QuanLyUI extends JFrame {
 	JButton btnThem;
 	JButton btnXoa;
 	JButton btnCapNhat;
+	
+	DefaultTableModel dtm2;
+	JTable tblNhanVien;
+	JButton btnThemNV;
+	JButton btnXoaNV;
+	JButton btnSuaNV;
+	JButton btnTraLuong;
+	
+	DefaultTableModel dtm3;
+	JTable tblChiPhi;
+	JButton btnThemChiPhi;
+	JButton btnSuaChiPhi;
+	JButton btnXoaChiPhi;
 	
 	public QuanLyUI (String title)
 	{
@@ -110,7 +123,54 @@ public class QuanLyUI extends JFrame {
 		pnQuanLy.add(btnCapNhat);
 		
 		/* tab quản lý nhân viên */
+		pnTab2.setLayout(new BoxLayout(pnTab2, BoxLayout.Y_AXIS));
+		//thông tin nhân viên
+		JPanel pnNhanVien = new JPanel();
+		pnNhanVien.setLayout(new BorderLayout());
+		pnTab2.add(pnNhanVien);
+		dtm2 = new DefaultTableModel();
+		dtm2.addColumn("Mã nhân viên");
+		dtm2.addColumn("Tên nhân viên");
+		dtm2.addColumn("Lương");
+		tblNhanVien = new JTable(dtm2);
+		JScrollPane sc2 = new JScrollPane(tblNhanVien, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		pnNhanVien.add(sc2, BorderLayout.CENTER);
+		//mục quản lý nhân viên
+		JPanel pnQuanLyNV = new JPanel();
+		pnQuanLyNV.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		pnTab2.add(pnQuanLyNV);
+		btnThemNV = new JButton("Thêm nhân viên");
+		btnXoaNV = new JButton("Xóa nhân viên");
+		btnSuaNV = new JButton("Sửa thông tin");
+		btnTraLuong = new JButton("Trả lương");
+		pnQuanLyNV.add(btnThemNV);
+		pnQuanLyNV.add(btnXoaNV);
+		pnQuanLyNV.add(btnSuaNV);
+		pnQuanLyNV.add(btnTraLuong);
 		
+		/*tab quản lý các chi phí */
+		pnTab3.setLayout(new BoxLayout(pnTab3, BoxLayout.Y_AXIS));
+		//thông tin các chi phí
+		JPanel pnChiPhi = new JPanel();
+		pnChiPhi.setLayout(new BorderLayout());
+		pnTab3.add(pnChiPhi);
+		dtm3 = new DefaultTableModel();
+		dtm3.addColumn("Số tiền chi");
+		dtm3.addColumn("Ngày chi");
+		dtm3.addColumn("Lý do chi");
+		tblChiPhi = new JTable(dtm3);
+		JScrollPane sc3 = new JScrollPane(tblChiPhi, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		pnChiPhi.add(sc3, BorderLayout.CENTER);
+		//quản lý các chi phí
+		JPanel pnQuanLyChiPhi = new JPanel();
+		pnQuanLyChiPhi.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		pnTab3.add(pnQuanLyChiPhi);
+		btnThemChiPhi = new JButton("Thêm chi phí");
+		btnXoaChiPhi = new JButton("Xóa chi phí");
+		btnSuaChiPhi = new JButton("Sửa chi phí");
+		pnQuanLyChiPhi.add(btnThemChiPhi);
+		pnQuanLyChiPhi.add(btnXoaChiPhi);
+		pnQuanLyChiPhi.add(btnSuaChiPhi);
 	}
 	private void addEvents() {
 		

@@ -1,6 +1,6 @@
-package ductung.test;
+package nhom5.test;
 
-import ductung.ui.NhanVienUI;
+import nhom5.ui.NhanVienUI;
 
 public class TestNhanVienUI {
 
