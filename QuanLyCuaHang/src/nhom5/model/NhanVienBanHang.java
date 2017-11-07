@@ -1,12 +1,9 @@
 package nhom5.model;
 
-import java.util.Vector;
-
 public class NhanVienBanHang {
 	private String ma;
 	private String ten;
 	private int luong;
-	private Vector<HoaDon> hoaDon;
 	public String getMa() {
 		return ma;
 	}
@@ -25,10 +22,11 @@ public class NhanVienBanHang {
 	public void setLuong(int luong) {
 		this.luong = luong;
 	}
-	public Vector<HoaDon> getHoaDon() {
-		return hoaDon;
+	public NhanVienBanHang(String ma, String ten, int luong) {
+		super();
+		this.ma = ma;
+		this.ten = ten;
+		this.luong = luong;
 	}
-	public void setHoaDon(Vector<HoaDon> hoaDon) {
-		this.hoaDon = hoaDon;
-	}
+	
 }

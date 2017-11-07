@@ -1,20 +1,24 @@
 package nhom5.model;
 
-public class DiaPhim {
-	private String 	tenDaoDien;
-	private String 	tenHangSanXuat;
-	
+public class DiaPhim extends SanPham {
+	private String tenDaoDien;
+	private String tenDienVien;
 	public String getTenDaoDien() {
 		return tenDaoDien;
 	}
 	public void setTenDaoDien(String tenDaoDien) {
 		this.tenDaoDien = tenDaoDien;
 	}
-	public String getTenHangSanXuat() {
-		return tenHangSanXuat;
+	public String getTenDienVien() {
+		return tenDienVien;
 	}
-	public void setTenHangSanXuat(String tenHangSanXuat) {
-		this.tenHangSanXuat = tenHangSanXuat;
+	public void setTenDienVien(String tenDienVien) {
+		this.tenDienVien = tenDienVien;
+	}
+	public DiaPhim(String ma, String ten, int giaMua, int giaBan, int soLuong, String tenDaoDien, String tenDienVien) {
+		super(ma, ten, giaMua, giaBan, soLuong);
+		this.tenDaoDien = tenDaoDien;
+		this.tenDienVien = tenDienVien;
 	}
 	
 }

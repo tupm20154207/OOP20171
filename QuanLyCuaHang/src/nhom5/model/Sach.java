@@ -1,9 +1,8 @@
 package nhom5.model;
 
-public class Sach {
+public class Sach extends SanPham {
 	private String nhaXuatBan;
 	private String tacGia;
-	
 	public String getNhaXuatBan() {
 		return nhaXuatBan;
 	}
@@ -14,6 +13,11 @@ public class Sach {
 		return tacGia;
 	}
 	public void setTacGia(String tacGia) {
+		this.tacGia = tacGia;
+	}
+	public Sach(String ma, String ten, int giaMua, int giaBan, int soLuong, String nhaXuatBan, String tacGia) {
+		super(ma, ten, giaMua, giaBan, soLuong);
+		this.nhaXuatBan = nhaXuatBan;
 		this.tacGia = tacGia;
 	}
 	

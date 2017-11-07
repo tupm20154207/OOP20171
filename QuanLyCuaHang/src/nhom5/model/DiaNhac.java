@@ -2,18 +2,23 @@ package nhom5.model;
 
 public class DiaNhac extends SanPham {
 	private String tenCaSi;
-	private String nhaSanXuat;
-	
+	private String theLoai;
 	public String getTenCaSi() {
 		return tenCaSi;
 	}
 	public void setTenCaSi(String tenCaSi) {
 		this.tenCaSi = tenCaSi;
 	}
-	public String getNhaSanXuat() {
-		return nhaSanXuat;
+	public String getTheLoai() {
+		return theLoai;
 	}
-	public void setNhaSanXuat(String nhaSanXuat) {
-		this.nhaSanXuat = nhaSanXuat;
+	public void setTheLoai(String theLoai) {
+		this.theLoai = theLoai;
 	}
+	public DiaNhac(String ma, String ten, int giaMua, int giaBan, int soLuong, String tenCaSi, String theLoai) {
+		super(ma, ten, giaMua, giaBan, soLuong);
+		this.tenCaSi = tenCaSi;
+		this.theLoai = theLoai;
+	}
+	
 }
