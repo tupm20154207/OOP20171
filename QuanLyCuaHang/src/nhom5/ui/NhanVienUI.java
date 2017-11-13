@@ -3,6 +3,8 @@ package nhom5.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,11 +22,9 @@ import javax.swing.table.DefaultTableModel;
 public class NhanVienUI extends JFrame {
 	
 	JMenuBar mnuBar;
-	JMenu mnuFile;
 	JMenu mnuAccount;
-	JMenuItem mnuFileOpen;
-	JMenuItem mnuFileSave;
-	JMenuItem mnuAccountLogout;
+	JMenuItem mnuDangXuat, mnuDoiMatKhau;
+
 	
 	JFileChooser chooser;
 	
@@ -45,61 +45,117 @@ public class NhanVienUI extends JFrame {
 	}
 
 	private void addControls() {
-		// tạo menu
+		
+		// Tao menu
+		
 		mnuBar = new JMenuBar();
 		setJMenuBar(mnuBar);
-		mnuFile = new JMenu("File");
-		mnuAccount = new JMenu("Account");
-		mnuBar.add(mnuFile);
+		
+			mnuAccount = new JMenu("Tai khoan");
+		
+				mnuDangXuat = new JMenuItem("Dang xuat");
+			
+				mnuDoiMatKhau = new JMenuItem("Doi mat khau");
+		
+			mnuAccount.add(mnuDangXuat);mnuAccount.add(mnuDoiMatKhau);
+		
 		mnuBar.add(mnuAccount);
-		mnuFileOpen = new JMenuItem("Open");
-		mnuFileSave = new JMenuItem("Save");
-		mnuFile.add(mnuFileOpen);
-		mnuFile.add(mnuFileSave);
-		mnuAccountLogout = new JMenuItem("Log out");
-		mnuAccount.add(mnuAccountLogout);
+		
+		// Set layout cho cua so
 		
 		Container con = getContentPane();
-		con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
 		
-		//mục tìm kiếm sản phẩm
+		JPanel pnMain = new JPanel();
+		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
+		
+		// Panel Tim kiem
+		
 		JPanel pnTimKiem = new JPanel();
-		con.add(pnTimKiem);
 		pnTimKiem.setLayout(new FlowLayout());
-		txtTimKiem = new JTextField(30);
-		btnTimKiem = new JButton("Tìm kiếm");
+		
+			txtTimKiem = new JTextField(30);
+			btnTimKiem = new JButton("Tìm kiếm");
+		
 		pnTimKiem.add(txtTimKiem);
 		pnTimKiem.add(btnTimKiem);
 		
-		//mục thông tin sản phẩm
+		//Panel ThongTin
+		
 		JPanel pnThongTin = new JPanel();
-		con.add(pnThongTin);
 		pnThongTin.setLayout(new BorderLayout());
-		dtm = new DefaultTableModel();
-		dtm.addColumn("Mã");
-		dtm.addColumn("Tên");
-		dtm.addColumn("Loại");
-		dtm.addColumn("Số lượng");
-		dtm.addColumn("Giá mua");
-		dtm.addColumn("Gía bán");
-		dtm.addColumn("Thông tin");
-		tblSanPham = new JTable(dtm);
-		JScrollPane sc = new JScrollPane(tblSanPham, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+			dtm = new DefaultTableModel();
+			
+			dtm.addColumn("Mã");
+			dtm.addColumn("Tên");
+			dtm.addColumn("Loại");
+			dtm.addColumn("Số lượng");
+			dtm.addColumn("Gía bán");
+			
+			tblSanPham = new JTable(dtm);
+		
+			JScrollPane sc = new JScrollPane(tblSanPham, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
 		pnThongTin.add(sc, BorderLayout.CENTER);
 		
-		//mục thanh toán cho khách đến mua hàng
-		JPanel pnThanhToan = new JPanel();
-		con.add(pnThanhToan);
-		pnThanhToan.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		btnThanhToan = new JButton("Thanh toán");
-		btnThoat = new JButton("Thoát");
-		pnThanhToan.add(btnThanhToan);
-		pnThanhToan.add(btnThoat);
+		//Panel Button
+		
+		JPanel pnButton = new JPanel();
+		pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
+			btnThanhToan = new JButton("Thanh toán");
+			btnThoat = new JButton("Thoát");
+			
+		pnButton.add(btnThanhToan); 
+		pnButton.add(btnThoat);
+		
+		pnMain.add(pnTimKiem); pnMain.add(pnThongTin);pnMain.add(pnButton);
+		
+		con.add(pnMain);
 	}
 
 	private void addEvents() {
 		// TODO Auto-generated method stub
 		
+		mnuDangXuat.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				LoginUI tmp = new LoginUI("Dang nhap");
+				tmp.showWindow();
+				setVisible(false);
+			}
+		});
+		
+		mnuDoiMatKhau.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ChangePwdUI tmp = new ChangePwdUI("Doi mat khau");
+				tmp.showWindow();
+			}
+		});
+		
+		btnThanhToan.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				HoaDonUI tmp = new HoaDonUI("Thanh toan");
+				tmp.showWindow();
+			}
+		});
+		
+		btnThoat.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 	}
 	
 	public void showWindow()
