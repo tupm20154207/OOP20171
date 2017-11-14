@@ -1,11 +1,13 @@
 package nhom5.model;
 
 public class SanPham {
+	
 	private String ma;
 	private String ten;
 	private int giaMua;
 	private int giaBan;
 	private int soLuong;
+	
 	public String getMa() {
 		return ma;
 	}

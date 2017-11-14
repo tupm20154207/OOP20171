@@ -1,22 +1,25 @@
 package nhom5.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CuaHang {
-	private static ArrayList<SanPham> dsSanPham = new ArrayList<>();
-	private static ArrayList<NhanVienBanHang> dsNhanVien = new ArrayList<>();
+	private static HashMap<String,SanPham> dsSanPham = new HashMap<>();
+	private static HashMap<String,NhanVienBanHang> dsNhanVien = new HashMap<>();
+	private static HashMap<String, HoaDon> dsHoaDon = new HashMap<>();
 	private static ArrayList<ChiPhi> dsChiPhi = new ArrayList<>();
-	private static ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
-	public static ArrayList<SanPham> getDsSanPham() {
+	private static ArrayList<HoaDonLuong> dsBangLuong = new ArrayList<>();
+	
+	public static HashMap<String,SanPham> getDsSanPham() {
 		return dsSanPham;
 	}
-	public static void setDsSanPham(ArrayList<SanPham> dsSanPham) {
+	public static void setDsSanPham(HashMap<String,SanPham> dsSanPham) {
 		CuaHang.dsSanPham = dsSanPham;
 	}
-	public static ArrayList<NhanVienBanHang> getDsNhanVien() {
+	public static HashMap<String,NhanVienBanHang> getDsNhanVien() {
 		return dsNhanVien;
 	}
-	public static void setDsNhanVien(ArrayList<NhanVienBanHang> dsNhanVien) {
+	public static void setDsNhanVien (HashMap<String,NhanVienBanHang> dsNhanVien) {
 		CuaHang.dsNhanVien = dsNhanVien;
 	}
 	public static ArrayList<ChiPhi> getDsChiPhi() {
@@ -25,11 +28,19 @@ public class CuaHang {
 	public static void setDsChiPhi(ArrayList<ChiPhi> dsChiPhi) {
 		CuaHang.dsChiPhi = dsChiPhi;
 	}
-	public static ArrayList<HoaDon> getDsHoaDon() {
+	public static HashMap<String, HoaDon> getDsHoaDon() {
 		return dsHoaDon;
 	}
-	public static void setDsHoaDon(ArrayList<HoaDon> dsHoaDon) {
+	public static void setDsHoaDon(HashMap<String, HoaDon> dsHoaDon) {
 		CuaHang.dsHoaDon = dsHoaDon;
 	}
+	public static ArrayList<HoaDonLuong> getDsBangLuong() {
+		return dsBangLuong;
+	}
+	public static void setDsBangLuong(ArrayList<HoaDonLuong> dsBangLuong) {
+		CuaHang.dsBangLuong = dsBangLuong;
+	}
+	
+	
 	
 }
