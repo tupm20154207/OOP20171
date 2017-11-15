@@ -95,8 +95,9 @@ public class LoginUI extends JFrame{
 					// Bat dau phien cua nhan vien
 					
 					NhanVienBanHang nv = CuaHang.getDsNhanVien().get(user);
-					NhanVienUI phienNhanVien = new NhanVienUI("Tim kiem");
+					nv.signIn();
 					
+					NhanVienUI phienNhanVien = new NhanVienUI("Tim kiem",nv);
 					phienNhanVien.showWindow();
 					setVisible(false);
 				}

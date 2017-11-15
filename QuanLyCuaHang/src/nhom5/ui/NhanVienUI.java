@@ -19,7 +19,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import nhom5.model.CuaHang;
+import nhom5.model.NhanVienBanHang;
+import nhom5.model.SanPham;
+
 public class NhanVienUI extends JFrame {
+	
+	NhanVienBanHang nhanVien;
 	
 	JMenuBar mnuBar;
 	JMenu mnuAccount;
@@ -37,9 +43,10 @@ public class NhanVienUI extends JFrame {
 	JButton btnThanhToan;
 	JButton btnThoat;
 	
-	public NhanVienUI (String title)
+	public NhanVienUI (String title, NhanVienBanHang nv)
 	{
 		super(title);
+		this.nhanVien = nv;
 		addControls();
 		addEvents();
 	}
@@ -122,6 +129,7 @@ public class NhanVienUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				nhanVien.signOut();
 				LoginUI tmp = new LoginUI("Dang nhap");
 				tmp.showWindow();
 				setVisible(false);
@@ -135,6 +143,20 @@ public class NhanVienUI extends JFrame {
 				// TODO Auto-generated method stub
 				ChangePwdUI tmp = new ChangePwdUI("Doi mat khau");
 				tmp.showWindow();
+			}
+		});
+		
+		btnTimKiem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				String text = txtTimKiem.getText();
+				if(CuaHang.getDsSanPham().containsKey(text)) {
+					SanPham sp = CuaHang.getDsSanPham().get(text);
+					String [] rowData = {sp.getMa(),sp.getTen(),sp.getClass().getSimpleName(),sp.getSoLuong()+"",sp.getGiaBan()+""};
+					dtm.addRow(rowData);
+				}
 			}
 		});
 		
