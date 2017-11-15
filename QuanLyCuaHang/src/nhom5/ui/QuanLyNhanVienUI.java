@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,11 +16,15 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import nhom5.model.CuaHang;
+import nhom5.model.NhanVienBanHang;
+import nhom5.model.QuanLy;
+
 public class QuanLyNhanVienUI extends JPanel {
 
 	// Khai bao cac bien duoc su dung
 	
-	JButton btnSuaLuongCoBan, btnXoa, btnThem, btnTraLuong;
+	JButton btnLamMoi, btnSuaLuongCoBan, btnXoa, btnThem, btnTraLuong;
 	DefaultTableModel dtm;
 	JTable tbl;
 	
@@ -51,7 +56,15 @@ public class QuanLyNhanVienUI extends JPanel {
 			dtm.addColumn("So gio tich luy");
 			dtm.addColumn("Trang thai hoat dong");
 		
-			tbl = new JTable(dtm);
+			tbl = new JTable(dtm) {
+				
+				// Overide isCellEditable method, ngan chan viec sua doi thong tin trong table.
+				
+		        public boolean isCellEditable(int row, int column) {                		
+		                return false;
+		        };
+		    };
+		    
 			JScrollPane sc = new JScrollPane(tbl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		pnNhanVien.add(sc, BorderLayout.CENTER);
@@ -62,11 +75,13 @@ public class QuanLyNhanVienUI extends JPanel {
 		pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		this.add(pnButton);
 		
+			btnLamMoi = new JButton("Lam moi");
 			btnThem = new JButton("Thêm nhân viên");
 			btnXoa = new JButton("Xóa nhân viên");
 			btnSuaLuongCoBan = new JButton("Sua luong co ban");
 			btnTraLuong = new JButton("Trả lương");
 		
+		pnButton.add(btnLamMoi);
 		pnButton.add(btnThem);
 		pnButton.add(btnXoa);
 		pnButton.add(btnSuaLuongCoBan);
@@ -76,6 +91,21 @@ public class QuanLyNhanVienUI extends JPanel {
 	// Add events
 	
 	public void addEvents() {
+		
+		btnLamMoi.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				clearTable();
+				for(NhanVienBanHang i : CuaHang.getDsNhanVien().values()) {
+					String [] rowData = {i.getMa(),i.getTen(),sdf.format(i.getNgaySinh()),sdf.format(i.getNgayVaoLam()),i.getLuongCoBan()+"",
+									  i.getGioTichLuy()+"", (i.isActive() ? "ONLINE" : "OFFLINE")};
+					dtm.addRow(rowData);
+				}
+			}
+		});
 		
 		btnThem.addActionListener(new ActionListener() {
 			
@@ -87,12 +117,43 @@ public class QuanLyNhanVienUI extends JPanel {
 			}
 		});
 		
+		btnXoa.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(tbl.getSelectedRow()!=-1) {
+					String maNV = tbl.getValueAt(tbl.getSelectedRow(), 0)+"";
+					NhanVienBanHang nv = CuaHang.getDsNhanVien().get(maNV);
+					QuanLy.xoaNhanVien(nv);
+					dtm.removeRow(tbl.getSelectedRow());
+					sendMess("Xoa thanh cong");
+				}
+			}
+		});
+		
 		btnSuaLuongCoBan.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String inputValue = JOptionPane.showInputDialog("Nhap luong co ban moi: ");
+				if(tbl.getSelectedRow()!=-1) {
+					
+					String maNV = tbl.getValueAt(tbl.getSelectedRow(), 0)+"";
+					NhanVienBanHang nv = CuaHang.getDsNhanVien().get(maNV);
+					
+					String inputValue = JOptionPane.showInputDialog("Nhap luong co ban moi: ");
+					
+					try {
+						QuanLy.suaLuongCoBan(nv, Integer.parseInt(inputValue));
+						sendMess("Sua thanh cong");
+					}
+					catch(Exception e1) {
+						sendMess("Du lieu khong hop le");
+					}
+				}
+				
+				
 			}
 		});
 		
@@ -105,5 +166,13 @@ public class QuanLyNhanVienUI extends JPanel {
 				tmp.showWindow();
 			}
 		});
+	}
+	
+	public void sendMess(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	public void clearTable() {
+		dtm.setRowCount(0);
 	}
 }

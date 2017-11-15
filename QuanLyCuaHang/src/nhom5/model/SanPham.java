@@ -45,4 +45,13 @@ public class SanPham {
 		this.giaBan = giaBan;
 		this.soLuong = soLuong;
 	}
+	public int getLoai() {
+		if		(this instanceof DiaNhac) return 1;
+		else if (this instanceof DiaPhim) return 2;
+		else if (this instanceof Sach	) return 3;
+		else return 0;
+	}
+	public String toString() {
+		return "";
+	}
 }

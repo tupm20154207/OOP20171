@@ -20,5 +20,7 @@ public class DiaNhac extends SanPham {
 		this.tenCaSi = tenCaSi;
 		this.theLoai = theLoai;
 	}
-	
+	public String toString() {
+		return ("Ca si: "+this.getTenCaSi()+", The loai: "+ this.getTheLoai());
+	}
 }

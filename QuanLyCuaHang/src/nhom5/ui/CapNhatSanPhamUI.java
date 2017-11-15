@@ -3,23 +3,33 @@ package nhom5.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import nhom5.model.DiaNhac;
+import nhom5.model.QuanLy;
+import nhom5.model.SanPham;
+
 public class CapNhatSanPhamUI extends JFrame{
+	
+	SanPham sp;
 	
 	// Khai bao cac bien duoc su dung
 	JTextField txtMa, txtTen, txtGiaMua, txtGiaBan, txtSoLuong;
 	JButton btnCapNhat;
 	
 	// Constructor
-	public CapNhatSanPhamUI (String title) {
+	public CapNhatSanPhamUI (String title, SanPham sp) {
 		super(title);
+		this.sp = sp;
 		addControls();
 		addEvents();
 	}
@@ -37,6 +47,7 @@ public class CapNhatSanPhamUI extends JFrame{
 					JLabel lblMa = new JLabel("Ma san pham: ");
 					txtMa = new JTextField(20);
 					txtMa.setEditable(false);
+					txtMa.setText(sp.getMa());
 				pnMa.add(lblMa); pnMa.add(txtMa);
 				
 				JPanel pnTen = new JPanel();
@@ -80,7 +91,29 @@ public class CapNhatSanPhamUI extends JFrame{
 	}
 	
 	public void addEvents() {
-		
+		btnCapNhat.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(	txtTen.getText().isEmpty()	  || txtGiaMua.getText().isEmpty() ||	
+					txtGiaBan.getText().isEmpty() || txtSoLuong.getText().isEmpty()) {
+						
+						sendMess("Yeu cau nhap du thong tin.");
+				
+				}
+				else {
+					try {
+						QuanLy.capNhatSanPham(  sp,txtTen.getText(),Integer.parseInt(txtGiaMua.getText()),
+												Integer.parseInt(txtGiaBan.getText()), Integer.parseInt(txtSoLuong.getText()) );
+						sendMess("Them thanh cong.");
+					}
+					catch(Exception e1) {
+						sendMess("Thong tin khong hop le.");
+					}
+				}
+			}
+		});
 	}
 	
 	public void showWindow() {
@@ -88,5 +121,9 @@ public class CapNhatSanPhamUI extends JFrame{
 		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+	}
+	
+	public void sendMess(String message) {
+		JOptionPane.showMessageDialog(null, message);
 	}
 }

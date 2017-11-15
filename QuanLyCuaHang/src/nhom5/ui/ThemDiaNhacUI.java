@@ -3,13 +3,21 @@ package nhom5.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import nhom5.model.CuaHang;
+import nhom5.model.DiaNhac;
+import nhom5.model.QuanLy;
+import nhom5.util.TienIch;
 
 public class ThemDiaNhacUI extends JFrame{
 	
@@ -38,6 +46,8 @@ public class ThemDiaNhacUI extends JFrame{
 				pnMa.setLayout(new FlowLayout());
 					JLabel lblMa = new JLabel("Ma san pham: ");
 					txtMa = new JTextField(20);
+					txtMa.setEditable(false);
+					txtMa.setText(TienIch.sinhMaSP("dn"));
 				pnMa.add(lblMa); pnMa.add(txtMa);
 				
 				JPanel pnTen = new JPanel();
@@ -95,7 +105,29 @@ public class ThemDiaNhacUI extends JFrame{
 	}
 	
 	public void addEvents() {
-		
+		btnThem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(	   txtMa.getText().isEmpty() || txtTen.getText().isEmpty() || txtCaSi.getText().isEmpty() || txtTheLoai.getText().isEmpty()
+					|| txtGiaMua.getText().isEmpty() ||	txtGiaBan.getText().isEmpty() ||	txtSoLuong.getText().isEmpty()) {
+					sendMess("Yeu cau nhap du thong tin.");
+				}
+				else {
+					try {
+					   DiaNhac dn = new DiaNhac(txtMa.getText(), txtTen.getText(), Integer.parseInt(txtGiaMua.getText()), 
+												Integer.parseInt(txtGiaBan.getText()), Integer.parseInt(txtSoLuong.getText()), 
+												txtCaSi.getText(), txtTheLoai.getText());
+					   QuanLy.themSanPham(dn);
+					   sendMess("Them thanh cong.");
+					}
+					catch(Exception e1) {
+						sendMess("Thong tin khong hop le.");
+					}
+				}
+			}
+		});
 	}
 	
 	public void showWindow() {
@@ -103,5 +135,9 @@ public class ThemDiaNhacUI extends JFrame{
 		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+	}
+	
+	public void sendMess(String message) {
+		JOptionPane.showMessageDialog(null, message);
 	}
 }

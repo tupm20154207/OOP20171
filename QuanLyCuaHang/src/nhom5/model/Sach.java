@@ -20,5 +20,7 @@ public class Sach extends SanPham {
 		this.nhaXuatBan = nhaXuatBan;
 		this.tacGia = tacGia;
 	}
-	
+	public String toString() {
+		return ("Tac gia: "+this.getTacGia()+", Nha xuat ban: "+this.getNhaXuatBan());
+	}
 }

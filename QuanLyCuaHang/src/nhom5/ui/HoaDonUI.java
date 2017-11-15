@@ -40,7 +40,7 @@ public class HoaDonUI extends JFrame{
 	// Khai bao cac bien duoc su dung
 	
 	JTextField txtTongTien, txtKhachGui, txtTraLai;
-	JButton btnIn;
+	JButton btnIn,btnXoa;
 	DefaultTableModel dtm;
 	JTable tbl;
 	
@@ -119,8 +119,9 @@ public class HoaDonUI extends JFrame{
 			
 			JPanel pnButton = new JPanel();
 			pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+				btnXoa = new JButton("Bo chon");
 				btnIn = new JButton("In hoa don");			
-			pnButton.add(btnIn);
+			pnButton.add(btnXoa);pnButton.add(btnIn);
 			
 		pnMain.add(pnCenter,BorderLayout.CENTER);
 		pnMain.add(pnButton,BorderLayout.SOUTH);
@@ -225,6 +226,20 @@ public class HoaDonUI extends JFrame{
 					
 				}
 				
+			}
+		});
+		
+		// Them su kien xoa
+		
+		btnXoa.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int row = tbl.getSelectedRow();
+				if(row != -1) {
+					dtm.removeRow(row);
+				}
 			}
 		});
 	}

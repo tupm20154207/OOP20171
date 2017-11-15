@@ -5,12 +5,17 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,12 +25,17 @@ import javax.swing.border.Border;
 
 import javax.swing.table.DefaultTableModel;
 
+import nhom5.model.CuaHang;
+import nhom5.model.HoaDonLuong;
+import nhom5.model.NhanVienBanHang;
+import nhom5.model.QuanLy;
+
 public class TraLuongUI extends JFrame{
 	
 	// Khai bao cac bien duoc su dung
 	
 	JTextField txtTongChi;
-	JButton btnTraLuong, btnXoa, btnDong;
+	JButton btnTraLuong;
 	DefaultTableModel dtm;
 	JTable tbl;
 	
@@ -50,7 +60,7 @@ public class TraLuongUI extends JFrame{
 				pnDanhSach.setLayout(new BorderLayout());
 			
 					dtm = new DefaultTableModel();
-					dtm.addColumn("Ten");dtm.addColumn("Ma");dtm.addColumn("So Gio");dtm.addColumn("Luong Co Ban");
+					dtm.addColumn("Ten");dtm.addColumn("Ma");dtm.addColumn("So Gio");dtm.addColumn("Luong Co Ban");dtm.addColumn("Tong Luong");
 					
 					tbl = new JTable(dtm) {
 						
@@ -90,10 +100,8 @@ public class TraLuongUI extends JFrame{
 			
 			JPanel pnButton = new JPanel();
 			pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
-				btnTraLuong = new JButton("Tra luong");
-				btnXoa = new JButton("Xoa");
-				btnDong = new JButton("Dong");
-			pnButton.add(btnTraLuong);pnButton.add(btnXoa); pnButton.add(btnDong);
+				btnTraLuong = new JButton("Tra luong");				
+			pnButton.add(btnTraLuong);
 			
 		pnMain.add(pnCenter,BorderLayout.CENTER);
 		pnMain.add(pnButton,BorderLayout.SOUTH);
@@ -103,6 +111,33 @@ public class TraLuongUI extends JFrame{
 	
 	public void addEvents() {
 		
+		// Them thong tin vao bang
+		
+		for(NhanVienBanHang i : CuaHang.getDsNhanVien().values()) {
+			String rowData[] = {i.getTen(),i.getMa(),i.getGioTichLuy()+"",i.getLuongCoBan()+"",i.getGioTichLuy() * i.getLuongCoBan()+""};
+			dtm.addRow(rowData);
+		}
+		
+		// Xu ly su kien tra luong
+		
+		btnTraLuong.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				HashMap<String, Integer> bangLuong = new HashMap<>();
+				
+				for(NhanVienBanHang i : CuaHang.getDsNhanVien().values()) {
+					bangLuong.put(i.getMa(), QuanLy.traLuong(i));
+				}
+				
+				QuanLy.themBangLuong(new HoaDonLuong(new Date(), bangLuong));
+				
+				sendMess("Da tra luong!");
+				
+				clearTable();
+			}
+		});
 	}
 	
 	public void showWindow() {
@@ -110,5 +145,13 @@ public class TraLuongUI extends JFrame{
 //		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+	}
+	
+	public void sendMess(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	public void clearTable() {
+		dtm.setRowCount(0);
 	}
 }

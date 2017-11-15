@@ -3,19 +3,27 @@ package nhom5.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import nhom5.model.DiaNhac;
+import nhom5.model.DiaPhim;
+import nhom5.model.QuanLy;
+import nhom5.util.TienIch;
 
 public class ThemDiaPhimUI extends JFrame{
 	
 	// Khai bao cac bien duoc su dung
 	
-	JTextField txtDaoDien,txtDienVien,txtMa, txtTen, txtGiaMua, txtGiaBan, txtSoLuong;
+	JTextField txtDaoDien,txtTheLoai,txtMa, txtTen, txtGiaMua, txtGiaBan, txtSoLuong;
 	JButton btnThem;
 	
 	// Constructor
@@ -38,6 +46,8 @@ Container con = getContentPane();
 				pnMa.setLayout(new FlowLayout());
 					JLabel lblMa = new JLabel("Ma san pham: ");
 					txtMa = new JTextField(20);
+					txtMa.setEditable(false);
+					txtMa.setText(TienIch.sinhMaSP("dp"));
 				pnMa.add(lblMa); pnMa.add(txtMa);
 				
 				JPanel pnTen = new JPanel();
@@ -52,11 +62,11 @@ Container con = getContentPane();
 					txtDaoDien = new JTextField(20);
 				pnDaoDien.add(lblDaoDien);pnDaoDien.add(txtDaoDien);
 				
-				JPanel pnDienVien = new JPanel();
-				pnDienVien.setLayout(new FlowLayout());
-					JLabel lblDienVien = new JLabel("Dien vien: ");
-					txtDienVien = new JTextField(20);
-				pnDienVien.add(lblDienVien);pnDienVien.add(txtDienVien);
+				JPanel pnTheLoai = new JPanel();
+				pnTheLoai.setLayout(new FlowLayout());
+					JLabel lblTheLoai = new JLabel("The loai: ");
+					txtTheLoai = new JTextField(20);
+				pnTheLoai.add(lblTheLoai);pnTheLoai.add(txtTheLoai);
 				
 				JPanel pnGiaMua = new JPanel();
 				pnGiaMua.setLayout(new FlowLayout());
@@ -76,7 +86,7 @@ Container con = getContentPane();
 					txtSoLuong = new JTextField(20);
 				pnSoLuong.add(lblSoLuong); pnSoLuong.add(txtSoLuong);
 				
-			pnCenter.add(pnMa);pnCenter.add(pnTen);pnCenter.add(pnDaoDien);pnCenter.add(pnDienVien);pnCenter.add(pnGiaMua);pnCenter.add(pnGiaBan);pnCenter.add(pnSoLuong);
+			pnCenter.add(pnMa);pnCenter.add(pnTen);pnCenter.add(pnDaoDien);pnCenter.add(pnTheLoai);pnCenter.add(pnGiaMua);pnCenter.add(pnGiaBan);pnCenter.add(pnSoLuong);
 		
 			JPanel pnButton = new JPanel();
 				btnThem = new JButton("Them");
@@ -91,11 +101,33 @@ Container con = getContentPane();
 		lblGiaMua.setPreferredSize(lblTen.getPreferredSize());
 		lblSoLuong.setPreferredSize(lblTen.getPreferredSize());
 		lblDaoDien.setPreferredSize(lblTen.getPreferredSize());
-		lblDienVien.setPreferredSize(lblTen.getPreferredSize());
+		lblTheLoai.setPreferredSize(lblTen.getPreferredSize());
 	}
 	
 	public void addEvents() {
-		
+		btnThem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(	   txtMa.getText().isEmpty() || txtTen.getText().isEmpty() || txtDaoDien.getText().isEmpty() || txtTheLoai.getText().isEmpty()
+					|| txtGiaMua.getText().isEmpty() ||	txtGiaBan.getText().isEmpty() ||	txtSoLuong.getText().isEmpty()) {
+					sendMess("Yeu cau nhap du thong tin.");
+				}
+				else {
+					try {
+					   DiaPhim dp = new DiaPhim(txtMa.getText(), txtTen.getText(), Integer.parseInt(txtGiaMua.getText()), 
+												Integer.parseInt(txtGiaBan.getText()), Integer.parseInt(txtSoLuong.getText()), 
+												txtDaoDien.getText(), txtTheLoai.getText());
+					   QuanLy.themSanPham(dp);
+					   sendMess("Them thanh cong.");
+					}
+					catch(Exception e1) {
+						sendMess("Thong tin khong hop le.");
+					}
+				}
+			}
+		});
 	}
 	
 	public void showWindow() {
@@ -103,5 +135,9 @@ Container con = getContentPane();
 		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+	}
+	
+	public void sendMess(String message) {
+		JOptionPane.showMessageDialog(null, message);
 	}
 }

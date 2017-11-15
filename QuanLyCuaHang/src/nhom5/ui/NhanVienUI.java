@@ -100,7 +100,14 @@ public class NhanVienUI extends JFrame {
 			dtm.addColumn("Số lượng");
 			dtm.addColumn("Gía bán");
 			
-			tblSanPham = new JTable(dtm);
+			tblSanPham = new JTable(dtm) {
+				
+				// Overide isCellEditable method, ngan chan viec sua doi thong tin trong table.
+				
+		        public boolean isCellEditable(int row, int column) {                		
+		                return false;
+		        };
+		    };
 		
 			JScrollPane sc = new JScrollPane(tblSanPham, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		

@@ -65,7 +65,7 @@ public class NhanVienBanHang {
 	public void setLuongCoBan(int luongCoBan) {
 		this.luongCoBan = luongCoBan;
 	}
-	public boolean isTrangThai() {
+	public boolean isActive() {
 		return trangThai;
 	}
 	public void setTrangThai(boolean trangThai) {
