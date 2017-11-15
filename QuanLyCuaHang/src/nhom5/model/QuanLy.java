@@ -2,7 +2,17 @@ package nhom5.model;
 
 public class QuanLy {
 	
+	private static String taiKhoan;
 	private static String matKhau;
+
+	
+	public static String getTaiKhoan() {
+		return taiKhoan;
+	}
+
+	public static void setTaiKhoan(String taiKhoan) {
+		QuanLy.taiKhoan = taiKhoan;
+	}
 
 	public static String getMatKhau() {
 		return matKhau;
@@ -16,10 +26,12 @@ public class QuanLy {
 	
 	public static void themNhanVien(NhanVienBanHang nv) {
 		CuaHang.getDsNhanVien().put(nv.getMa(), nv);
+		CuaHang.getDsTaiKhoan().put(nv.getMa(), nv.getMatKhau());
 	}
 	
 	public static void xoaNhanVien(NhanVienBanHang nv) {
 		CuaHang.getDsNhanVien().remove(nv.getMa());
+		CuaHang.getDsTaiKhoan().remove(nv.getMa());
 	}
 	
 	public static void suaLuongCoBan(NhanVienBanHang nv, int luongMoi) {

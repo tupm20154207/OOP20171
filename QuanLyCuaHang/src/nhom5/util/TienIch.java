@@ -46,7 +46,7 @@ public class TienIch {
 	
 	// Xu ly gio phut
 	
-	public static Date chuyenDoiGioPhut(String input) {
+	public static Date chuyenDoiGioPhutGiay(String input) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		

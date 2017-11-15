@@ -3,15 +3,22 @@ package nhom5.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import nhom5.model.CuaHang;
+import nhom5.model.NhanVienBanHang;
+import nhom5.model.QuanLy;
 
 public class LoginUI extends JFrame{
 	
@@ -19,8 +26,6 @@ public class LoginUI extends JFrame{
 	
 	JTextField txtUser,txtPwd;
 	JButton btnSignIn;
-	
-	DefaultTableModel dtm;
 	
 	// Constructor
 	public LoginUI(String title) {
@@ -70,7 +75,39 @@ public class LoginUI extends JFrame{
 	}
 	
 	public void addEvents() {
-
+		btnSignIn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String user = txtUser.getText();
+				String password = txtPwd.getText();
+				
+				if(user.equals(QuanLy.getTaiKhoan()) && password.equals(QuanLy.getMatKhau())) {
+					// Bat dau phien cua nguoi quan ly
+					QuanLyUI ql = new QuanLyUI("Quan ly");
+					ql.showWindow();
+					setVisible(false);
+				}
+				
+				else if(CuaHang.getDsTaiKhoan().containsKey(user) && password.equals(CuaHang.getDsTaiKhoan().get(user))) {
+					
+					// Bat dau phien cua nhan vien
+					
+					NhanVienBanHang nv = CuaHang.getDsNhanVien().get(user);
+					NhanVienUI phienNhanVien = new NhanVienUI("Tim kiem");
+					
+					phienNhanVien.showWindow();
+					setVisible(false);
+				}
+				
+				else {
+					JOptionPane.showMessageDialog(null,"Ten dang nhap hoac mat khau khong dung");
+					txtUser.setText(""); txtPwd.setText("");
+				}
+			}
+				
+		});
 	}
 	
 	public void showWindow() {

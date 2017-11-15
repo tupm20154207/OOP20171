@@ -9,6 +9,7 @@ public class CuaHang {
 	private static HashMap<String, HoaDon> dsHoaDon = new HashMap<>();
 	private static ArrayList<ChiPhi> dsChiPhi = new ArrayList<>();
 	private static ArrayList<HoaDonLuong> dsBangLuong = new ArrayList<>();
+	private static HashMap<String, String> dsTaiKhoan = new HashMap<>();
 	
 	public static HashMap<String,SanPham> getDsSanPham() {
 		return dsSanPham;
@@ -40,7 +41,11 @@ public class CuaHang {
 	public static void setDsBangLuong(ArrayList<HoaDonLuong> dsBangLuong) {
 		CuaHang.dsBangLuong = dsBangLuong;
 	}
-	
-	
+	public static HashMap<String, String> getDsTaiKhoan() {
+		return dsTaiKhoan;
+	}
+	public static void setDsTaiKhoan(HashMap<String, String> dsTaiKhoan) {
+		CuaHang.dsTaiKhoan = dsTaiKhoan;
+	}
 	
 }
