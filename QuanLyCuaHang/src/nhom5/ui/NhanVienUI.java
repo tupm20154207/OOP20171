@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -41,7 +43,6 @@ public class NhanVienUI extends JFrame {
 	JTable tblSanPham;
 	
 	JButton btnThanhToan;
-	JButton btnThoat;
 	
 	public NhanVienUI (String title, NhanVienBanHang nv)
 	{
@@ -111,10 +112,8 @@ public class NhanVienUI extends JFrame {
 		pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 			btnThanhToan = new JButton("Thanh toán");
-			btnThoat = new JButton("Thoát");
 			
 		pnButton.add(btnThanhToan); 
-		pnButton.add(btnThoat);
 		
 		pnMain.add(pnTimKiem); pnMain.add(pnThongTin);pnMain.add(pnButton);
 		
@@ -157,6 +156,9 @@ public class NhanVienUI extends JFrame {
 					String [] rowData = {sp.getMa(),sp.getTen(),sp.getClass().getSimpleName(),sp.getSoLuong()+"",sp.getGiaBan()+""};
 					dtm.addRow(rowData);
 				}
+				else {
+					sendMess("Ma san pham khong dung");
+				}
 			}
 		});
 		
@@ -164,20 +166,20 @@ public class NhanVienUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				HoaDonUI tmp = new HoaDonUI("Thanh toan");
-				tmp.showWindow();
+			
+				if(dtm.getRowCount() > 0) {
+					ArrayList<String> dsSP = new ArrayList<>();
+					
+					for(int i = 0; i < dtm.getRowCount(); i++) {
+						dsSP.add((String)dtm.getValueAt(i, 0));
+					}
+					
+					HoaDonUI tmp = new HoaDonUI("Hoa don",nhanVien, dsSP);
+					tmp.showWindow();
+				}
 			}
 		});
 		
-		btnThoat.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.exit(0);
-			}
-		});
 	}
 	
 	public void showWindow()
@@ -186,5 +188,9 @@ public class NhanVienUI extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+	}
+	
+	public void sendMess(String message) {
+		JOptionPane.showMessageDialog(null, message);
 	}
 }

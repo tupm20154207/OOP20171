@@ -15,10 +15,11 @@ import nhom5.util.TienIch;
 public class TestLogin {
 	public static void main(String args[]) {
 		
-		QuanLy.setTaiKhoan("ql");QuanLy.setMatKhau("zxc");
-		QuanLy.themNhanVien(new NhanVienBanHang("", "", "Tu", TienIch.chuyenDoiNgay("17/11/1997"), new Date(), 15000));
+		QuanLy.setTaiKhoan("ql");QuanLy.setMatKhau("1");
+		QuanLy.themNhanVien(new NhanVienBanHang("", "1", "Tu", TienIch.chuyenDoiNgay("17/11/1997"), new Date(), 15000));
 		
 		QuanLy.themSanPham(new SanPham("1", "1", 1, 1, 1));
+		QuanLy.themSanPham(new SanPham("2", "2", 2, 12,1));
 		
 		LoginUI ui = new LoginUI("");
 		ui.showWindow();

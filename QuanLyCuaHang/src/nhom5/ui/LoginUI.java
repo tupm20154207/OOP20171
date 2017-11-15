@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +25,8 @@ public class LoginUI extends JFrame{
 	
 	// Khai bao cac bien duoc su dung
 	
-	JTextField txtUser,txtPwd;
+	JTextField txtUser;
+	JPasswordField txtPwd;
 	JButton btnSignIn;
 	
 	// Constructor
@@ -59,7 +61,8 @@ public class LoginUI extends JFrame{
 				JPanel pnPwd = new JPanel();
 				pnPwd.setLayout(new FlowLayout());
 					JLabel lblPwd = new JLabel("Mat khau: ");
-					txtPwd = new JTextField(20);
+					txtPwd = new JPasswordField(20);
+					txtPwd.setEchoChar('*');
 				pnPwd.add(lblPwd); pnPwd.add(txtPwd);
 			pnCenter.add(pnLogo);pnCenter.add(pnUser);pnCenter.add(pnPwd);
 		
