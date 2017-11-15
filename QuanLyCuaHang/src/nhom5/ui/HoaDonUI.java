@@ -149,17 +149,19 @@ public class HoaDonUI extends JFrame{
 			public void tableChanged(TableModelEvent e) {
 				// TODO Auto-generated method stub
 				if(e.getType() == TableModelEvent.UPDATE) {
+					
 					int row = e.getFirstRow();
 					int column = e.getColumn();
 					if(column == 2) {
 						
-						String maSP = tbl.getValueAt(row, 0).toString();
+						String maSP = tbl.getValueAt(row, 1).toString();
 						int soLuong = getIntAt(row, column);
 						
 						if(CuaHang.getDsSanPham().get(maSP).getSoLuong() < soLuong) {
 							sendMess("Khong du san pham");
 							tbl.setValueAt(0, row, column);
 							tbl.setValueAt(0, row, 4);
+							return;
 						}
 						
 						else {
@@ -189,7 +191,7 @@ public class HoaDonUI extends JFrame{
 					txtTraLai.setText((khachGui-tongTien)+"");
 				}
 				catch (Exception e1) {
-					sendMess("Dau vao khong hop le");
+					sendMess("Du lieu khong hop le");
 				}
 			}
 		});
@@ -202,28 +204,36 @@ public class HoaDonUI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				// Kiem tra cac o text
-				
-				if(txtKhachGui.getText().isEmpty() || txtTraLai.getText().isEmpty()) {
-					sendMess("Yeu cau nhap du thong tin cho hoa don");
-				}
-				
-				else {
-					// Cap nhat so luong san pham  
+				if(dtm.getRowCount() > 0) {
+					// Kiem tra cac o text
 					
-					for(int i = 0; i < dtm.getRowCount(); i++) {
-						SanPham sp = CuaHang.getDsSanPham().get(dsSP.get(i));
-						sp.setSoLuong(sp.getSoLuong()- getIntAt(i,2));
+					if(txtKhachGui.getText().isEmpty() || txtTraLai.getText().isEmpty()) {
+						sendMess("Yeu cau nhap du thong tin cho hoa don");
 					}
 					
-					// Them hoa don vao csdl
-					
-					QuanLy.themHoaDon(new HoaDon(TienIch.sinhMaHD(), new Date(), nhanVien));
-					
-					// Thong bao thanh cong
-					
-					sendMess("In hoa don thanh cong!");
-					
+					else {
+						
+						HoaDon hd = new HoaDon(TienIch.sinhMaHD(), new Date(), nhanVien);
+						// Cap nhat so luong san pham  
+						
+						for(int i = 0; i < dtm.getRowCount(); i++) {
+							String maSP = tbl.getValueAt(i, 1)+"";
+							SanPham sp = CuaHang.getDsSanPham().get(maSP);
+							int soLuongBan = getIntAt(i,2);
+							
+							hd.themSanPham(sp, soLuongBan);
+							sp.setSoLuong(sp.getSoLuong()- soLuongBan);
+						}
+						
+						// Them hoa don vao csdl
+						
+						QuanLy.themHoaDon(hd);
+						
+						// Thong bao thanh cong
+						
+						sendMess("In hoa don thanh cong!");
+						
+					}
 				}
 				
 			}

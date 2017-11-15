@@ -10,6 +10,7 @@ import nhom5.model.Sach;
 import nhom5.model.SanPham;
 import nhom5.ui.HoaDonUI;
 import nhom5.ui.LoginUI;
+import nhom5.ui.NhanVienUI;
 import nhom5.ui.ThemDiaNhacUI;
 import nhom5.ui.ThemKhoanChiUI;
 import nhom5.ui.TraLuongUI;
@@ -27,7 +28,7 @@ public class TestLogin {
 		QuanLy.themSanPham(new DiaPhim(TienIch.sinhMaSP("dp"), "Inception", 2, 12,1,"christopher nolan","mindf*ck"));
 		QuanLy.themSanPham(new Sach(TienIch.sinhMaSP("s"),"Sherlock Holmes",3,5,1,"conan doyle","detective"));
 		
-		LoginUI ui = new LoginUI("");
-		ui.showWindow();
+		NhanVienUI nv = new NhanVienUI("nv", new NhanVienBanHang("nv1", "1", "Tu", TienIch.chuyenDoiNgay("17/11/1997"), new Date(), 15000));
+		nv.showWindow();
 	}
 }
